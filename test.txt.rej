@@ -1,0 +1,16 @@
+diff a/test.txt b/test.txt	(rejected hunks)
+@@ -1,9 +1,13 @@
+  test.txt
+ -Deuxieme test!
+++<<<<<<< a61dd9db96b306f2ee6d4f7ae9991923b0b38e3e
+ +
+ +--------------------(Pascal d饕ut)-----------------------
+ +oui test ok 
+ +test 2 
+ +
+ +
+- ----------------------(Pascal fin)---------------------
+++----------------------(Pascal fin)---------------------
+++=======
+++Deuxieme test!
+++>>>>>>> Test Bobby

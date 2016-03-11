@@ -1,0 +1,14 @@
+test.txt
+<<<<<<< HEAD
+Deuxieme test!
+=======
+
+--------------------(Pascal début)-----------------------
+oui test ok 
+test 2 
+
+
+----------------------(Pascal fin)---------------------
+>>>>>>> debeb21201f98842ce8700df0d557ce2eeb12cab
+
+Jc
