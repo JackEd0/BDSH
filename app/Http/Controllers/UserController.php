@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Routing\Controller as BaseController;
 
 use App\Utilisateur;
@@ -24,10 +25,28 @@ use Illuminate\Support\Facades\View;
 class UserController extends BaseController
 {
     //
-    public function login () {
+
+    public function listAll ()
+    {
+        $users = User::paginate(5);
+        return view ('users.list',compact('users'));
+    }
+    public function edit ($email)
+    {
+        $user = User::where('email',$email)->firstOrFail();
+        $userType = 0;//$user->userType;   //ne marche pas, renvoie l'erreur
+        return view('users.edit',compact('user','userType'));
+    }
+    public function signUp ()
+    {
+        return view ('users.signUp');
+    }
+    public function login ()
+    {
         return view('users.login');
     }
-    public function check() {
+    public function check ()
+    {
         $inputs = Input::all();
         $inputs['username'] = e($inputs['username']);
         $inputs['password'] = e($inputs['password']);

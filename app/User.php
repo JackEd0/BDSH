@@ -6,6 +6,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    protected $guarded = [
+        'id', 'created_at'
+    ];
+
+    public function userType ()
+    {
+        return $this->hasOne('\App\UserType');
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -23,4 +31,5 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
 }

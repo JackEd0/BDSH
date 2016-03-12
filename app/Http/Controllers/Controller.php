@@ -13,28 +13,17 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index () {
+    public function index ()
+    {
         return view ('welcome');
     }
-    public function shs () {
-        return view ('shs.shs');
+    public function shsHome ()
+    {
+        return view ('shs.home');
     }
-    public function shsSearch () {
+    public function shsSearch ()
+    {
         return view ('shs.search');
     }
-    public function auth () {
-        return view ('myAut.index');
-    }
-    public function signup () {
-        return view ('myAut.signup');
-    }
-    public function usersList () {
-        $utilisateurs = Utilisateur::paginate(5);
-        return view ('shs.usersList',compact('utilisateurs'));
-    }
-    public function usersEdit ($email) {
-        $utilisateur = Utilisateur::where('email',$email)->firstOrFail();
-        $userType = $utilisateur->userType_id;
-        return view('shs.usersEdit',compact('utilisateur','userType'));
-    }
+
 }

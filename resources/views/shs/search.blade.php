@@ -13,15 +13,15 @@ $subbar = 0;
 @section('content')
     <div class="page">
         <div class="logo">
-            <div class="slogan"><img src="view-source:http://histoiresherbrooke.ca/medias/logo.png" alt="Vos histoire"/>
+            <div class="slogan"><img src="view-source:http://www.histoiresherbrooke.ca/medias/logo.png" alt="Vos histoire"/>
             </div>
-            <img src="view-source:http://histoiresherbrooke.ca/medias/logo.jpg" alt="Vos histoires - Nos images"/></div>
+            <img src="view-source:http://www.histoiresherbrooke.ca/medias/logo.jpg" alt="Vos histoires - Nos images"/></div>
 
         <form method="post" action="search.php">
             <div class="search"><span class="label">RECHERCHE</span> <input type="text" name="search_input[]"
                                                                             class="text"/>
                 <input type="image" style="position: absolute;"
-                       src="view-source:http://histoiresherbrooke.ca/medias/btn_search.png"/><span
+                       src="view-source:http://www.histoiresherbrooke.ca/medias/btn_search.png"/><span
                         class="advanced_search"><a href="search.php?advanced">Recherche avancée</a></span></div>
         </form>
 

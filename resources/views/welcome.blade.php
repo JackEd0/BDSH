@@ -39,8 +39,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
-                <a href="{{ URL::route('posts.index') }}"><h2>Posts List</h2></a>
-                <a href="{{ URL::route('utilisateurs.index') }}"><h2>Utilisateurs List</h2></a>
+                <a href="{{ URL::route('shs.home') }}"><h2>SHS Home</h2></a>
             </div>
         </div>
     </body>

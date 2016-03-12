@@ -61,10 +61,7 @@
             <ul class="nav navbar-nav">
                 <li class="<?php
                     if ($navbar == 1) echo 'active';
-                ?>"><a href="{{ URL::route('posts.index') }}">Posts</a></li>
-                <li class="<?php
-                    if ($navbar == 2) echo 'active';
-                ?>"><a href="{{ URL::route('utilisateurs.index') }}">Utilisateurs</a></li>
+                ?>"><a href="{{ URL::route('shs.home') }}">SHS Home</a></li>
             </ul>
             @if (Auth::check())
                 <li><a href="#">En ligne</a></li>
@@ -74,8 +71,8 @@
                 </ul>
             @endif
             <ul class="nav navbar-nav navbar-right">
-                <li ><a href="{{ URL::route('signup') }}">Inscription</a></li>
-                <li class="active"><a href="{{ URL::route('auth') }}">Connexion</a></li>
+                <li ><a href="{{ URL::route('users.signUp') }}">Inscription</a></li>
+                <li class="active"><a href="{{ URL::route('users.login') }}">Connexion</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
