@@ -7,6 +7,7 @@ use BadMethodCallException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Session\SessionInterface;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -1106,7 +1107,7 @@ class FormBuilder
             return $this->model->getFormValue($name);
         }
 
-        return data_get($this->model, $this->transformKey($name));
+        return data_get($this->model->toArray(), $this->transformKey($name));
     }
 
     /**

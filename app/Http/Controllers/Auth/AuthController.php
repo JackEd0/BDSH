@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace app\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -28,12 +30,14 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = 'search';
+    // Redirige l'utilisateur vers la page de 'login' une fois déconnecté
+    protected $redirectAfterLogout = 'login';
+    // Utilise le 'username' au lieu de 'email' comme argument d'authentification
+    protected $username = 'username';
 
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -43,30 +47,120 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'username' => 'required|max:25|unique:users',
+            'name' => 'required|max:50',
+            'firstName' => 'required|max:50',
+            'email' => 'required|email|max:50|unique:users',
+            'password' => 'required|confirmed|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_\W]).+$/',
+            'address' => 'required|max:50',
+            'town' => 'required|max:25',
+            'postalCode' => 'required|max:25',
+            'province' => 'required|max:25',
+            'country' => 'required|max:25',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return User
      */
     protected function create(array $data)
     {
         return User::create([
+            'username' => $data['username'],
             'name' => $data['name'],
+            'firstName' => $data['firstName'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'address' => $data['address'],
+            'town' => $data['town'],
+            'postalCode' => $data['postalCode'],
+            'province' => $data['province'],
+            'country' => $data['country'],
+            'phone' => $data['phone'],
+            // Par défaut l'utilisateur est inactif
+            'active' => 1,
+            //user_type = client par défaut
+            'user_type_id' => 4,
+            //confirmation
+            'confirmed' => 0,
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        
+        $user = $this->create($request->all());
+
+       \Mail::send('emails.registration',
+            array('user' => $user),
+            function($message) use ($user) {
+                $message->to($user->email)->subject('Confirmation d\'inscription');
+            });
+        
+        return redirect('login')->with('warning', 'Un lien de confirmation vous a été envoyé. Veuillez vérifier votre boîte de réception ainsi que vos spams.');
+    }
+
+    protected function getCredentials(Request $request)
+    {
+        $credentials = $request->only($this->loginUsername(), 'password');
+        $credentials = array_add($credentials, 'active', 1);
+        $credentials = array_add($credentials, 'confirmed', 1);
+        return $credentials;
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $user = User::where('username', $request->input($this->loginUsername()))->first();
+        $erreur = $this->getFailedLoginMessage();
+        if ($user != null && $user->confirmed == 0 && $user->active == 1) {
+            $erreur = 'Ce compte n\'a pas été confirmé. Un lien vous a été envoyé.';
+        }
+
+        return redirect()->back()
+            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withErrors([
+                $this->loginUsername() => $erreur,
+            ]);
+    }
+
+    public function activateUser($id)
+    {
+        $id = \Crypt::decrypt($id);
+        $user = User::where('id', $id)->firstOrFail();
+
+        if ($user->confirmed == 0) {
+            $user->confirmed = 1;
+
+            $message = 'L\'activation de votre compte est complétée, vous pouvez maintenant vous connecter.';
+            $user->save();
+        } else {
+            $message = 'Ce compte a déjà été activé, vous pouvez vous connecter.';
+        }
+
+        return redirect('login')->with('status', $message);
     }
 }

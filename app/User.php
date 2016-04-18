@@ -1,18 +1,23 @@
 <?php
 
-namespace App;
+namespace app;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     protected $guarded = [
-        'id', 'created_at'
+        'id', 'created_at',
     ];
 
-    public function userType ()
+    /**
+     * Donne le type d'un utilisateur.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userType()
     {
-        return $this->hasOne('\App\UserType');
+        return $this->belongsTo('\App\UserType');
     }
     /**
      * The attributes that are mass assignable.
@@ -20,7 +25,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'name', 'firstName', 'email', 'password', 'address', 'town',
+        'postalCode', 'province', 'country', 'phone', 'active', 'user_type_id', 'confirmed',
     ];
 
     /**
@@ -31,5 +37,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
 }

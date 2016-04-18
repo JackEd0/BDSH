@@ -868,14 +868,14 @@
             <li><a href="http://www.histoiresherbrooke.org/circuits_et_evenements">Circuits et evenements</a></li>
             <li><a href="http://www.histoiresherbrooke.org/horaire_et_tarifs">Horaire et tarifs</a></li>
 
-            <li><a class="home_logo" href="<?php echo(URL::route('users.login')) ?>">Connexion</a></li>
+            <li><a class="home_logo" href="{{ url('/login') }}">Connexion</a></li>
         </ul>
         <br class="clear">
     </div>
 </div>
 
 <div class="wrapper">
-    <a class="monimage2" href="<?php echo(URL::route('shs.search')) ?>"><img
+    <a class="monimage2" href="<?php echo URL::route('shs.search') ?>"><img
             src="http://puu.sh/naFf1/8f51654e89.jpg"></a>
     <style>
         .monimage2 {

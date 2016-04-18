@@ -3,10 +3,10 @@
  * Created by PhpStorm.
  * User: carm1306
  * Date: 2016-03-04
- * Time: 10:46
+ * Time: 10:46.
  */
 
-namespace App\CommandPattern;
+namespace app\CommandPattern;
 
 /*****************************************
  * Pour l'ajout d'un nouvel élément (Document par exemple)

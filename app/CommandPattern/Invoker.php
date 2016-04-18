@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: carm1306
  * Date: 2016-03-04
- * Time: 10:40
+ * Time: 10:40.
  */
 
-namespace App\CommandPattern;
-
+namespace app\CommandPattern;
 
 /*****************************************
  * Pour l'utilisation de CommandPattern
@@ -20,16 +19,20 @@ namespace App\CommandPattern;
  */
 class Invoker
 {
-    public function addCommand(AbstractCommand $command){
+    public function addCommand(AbstractCommand $command)
+    {
         $command->add();
     }
-    public function removeCommand(AbstractCommand $command){
+    public function removeCommand(AbstractCommand $command)
+    {
         $command->remove();
     }
-    public function viewCommand(AbstractCommand $command){
+    public function viewCommand(AbstractCommand $command)
+    {
         $command->view();
     }
-    public function saveCommand(AbstractCommand $command){
+    public function saveCommand(AbstractCommand $command)
+    {
         $command->save();
     }
 }

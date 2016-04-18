@@ -2,15 +2,12 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 use App\UserType;
 
 class CreateUserTypeTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -22,29 +19,26 @@ class CreateUserTypeTable extends Migration
             $table->timestamps();
         });
 
-       /*UserType::create([  //la migration ne marche pas
-            'name_fr'=>'Administrateur',
-            'name_en'=>'Administrator',
+        UserType::create([
+            'name_fr' => 'Administrateur',
+            'name_en' => 'Administrator',
         ]);
         UserType::create([
-            'name_fr'=>'Employé',
-            'name_en'=>'Employee',
+            'name_fr' => 'Employé',
+            'name_en' => 'Employee',
         ]);
         UserType::create([
-            'name_fr'=>'Employé +',
-            'name_en'=>'Employee +',
+            'name_fr' => 'Employé +',
+            'name_en' => 'Employee +',
         ]);
         UserType::create([
-            'name_fr'=>'Client',
-            'name_en'=>'Client',
-        ]);*/
-
+            'name_fr' => 'Client',
+            'name_en' => 'Client',
+        ]);
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

@@ -1,17 +1,25 @@
 <?php
 
-namespace App;
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 
 class UserType extends Model
 {
     //
+    protected $table = 'user_type';
+
     protected $guarded = [
-        'id', 'created_at'
+        'id', 'created_at',
     ];
-    public function user ()
+
+    /**
+     * Donne tous les utilisateurs d'un type particulier.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function user()
     {
-        return $this->belongsTo('\App\User','user_type','user_type_id');
+        return $this->hasMany('\App\User');
     }
 }

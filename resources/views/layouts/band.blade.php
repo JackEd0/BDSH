@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Jacques
  * Date: 16/02/2016
- * Time: 11:57
+ * Time: 11:57.
  */ ?>
         <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">

@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
-use App\User;
-use App\Utilisateur;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -13,17 +11,20 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index ()
+    public function index()
     {
-        return view ('welcome');
-    }
-    public function shsHome ()
-    {
-        return view ('shs.home');
-    }
-    public function shsSearch ()
-    {
-        return view ('shs.search');
+        //return view('welcome');
+        return view('auth.login');
     }
 
+    //Appel des vues de shs (société d'histoire de sherbrooke)
+    public function shsHome()
+    {
+        //return view('shs.home');
+        return view('auth.login');
+    }
+    public function shsSearch()
+    {
+        return view('shs.search');
+    }
 }

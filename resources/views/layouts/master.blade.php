@@ -1,7 +1,8 @@
 <?php
     $navbar = 0;
-        if(isset($subbar))
-        $navbar += $subbar;
+        if (isset($subbar)) {
+            $navbar += $subbar;
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +61,9 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="<?php
-                    if ($navbar == 1) echo 'active';
+                    if ($navbar == 1) {
+                        echo 'active';
+                    }
                 ?>"><a href="{{ URL::route('shs.home') }}">SHS Home</a></li>
             </ul>
             @if (Auth::check())
