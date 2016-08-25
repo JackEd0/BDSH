@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Document;
+
 
 class CreateDocumentsTable extends Migration
 {
@@ -19,11 +19,6 @@ class CreateDocumentsTable extends Migration
             $table->integer('card_id');
             $table->timestamps();
         });
-
-        Document::create([
-            'file_name'=>'test',
-            'card_id'=>0,
-        ]);
     }
 
     /**
@@ -33,6 +28,6 @@ class CreateDocumentsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('documents');
     }
 }

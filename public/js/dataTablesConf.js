@@ -33,7 +33,7 @@ $(document).ready(function(){
         ordering: true,
         searching: true,
         columnDefs: [
-            { orderable: false, "targets": [1, 2] },
+            { orderable: false, "targets": [1, 3] },
             { searchable: false, "targets": 2}
         ],
         language: {
@@ -68,6 +68,30 @@ function showInactive () {
     var checked = document.getElementById("inputShowInactiveUsers").checked;
     var Sstring = "Activer";
     if (checked) {
+        $("tr:contains('" + Sstring + "')").fadeIn();
+    }
+    else {
+        $("tr:contains('" + Sstring + "')").fadeOut();
+    }
+}
+
+function showCategory (value) {
+    switch (value) {
+        case 1:
+            var checked = document.getElementById("inputShowArchives").checked;
+            var Sstring = "Archives";
+            break;
+        case 2:
+            var checked = document.getElementById("inputShowAudiovisuels").checked;
+            var Sstring = "Audiovisuels";
+            break;
+        default:
+            var checked = document.getElementById("inputShowAll").checked;
+            var Sstring = "";
+            break;
+    }
+    if (checked) {
+        $("tr:contains('')").fadeOut();
         $("tr:contains('" + Sstring + "')").fadeIn();
     }
     else {

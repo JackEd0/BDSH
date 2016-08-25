@@ -49,7 +49,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('cards/update/{id}', ['as' => 'updateCard', 'middleware' => ['auth', 'verify.access.permission:1'], 'uses' => 'CardController@updateCard']);
     Route::post('addDoc', ['as' => 'cards.addDoc', 'middleware' => ['auth', 'verify.access.permission:1'], 'uses' => 'CardController@addDoc']);
     Route::get('cards/view/{id}', ['as' => 'cards.view', 'middleware' => ['auth', 'verify.access.permission:4'], 'uses' => 'CardController@goToCardView']);
+    Route::get('addCardAttribute', ['as' => 'cards.addAttribute', 'middleware' => ['auth', 'verify.access.permission:1'], 'uses' => 'CardController@addCardAttribute']);
+    Route::post('addCardAttribute', ['as' => 'createCardAttribute', 'middleware' => ['auth', 'verify.access.permission:1'], 'uses' => 'CardController@createCardAttribute']);
 
+    Route::get('importDocument', ['as' => 'document.import', 'uses' => 'DocumentController@importDocuments']);
+    
     Route::get('shs', ['as' => 'shs.home', 'uses' => 'Controller@shsHome']);
     Route::get('shsSearch', ['as' => 'shs.search', 'uses' => 'Controller@shsSearch']);
 

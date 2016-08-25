@@ -11,7 +11,7 @@ class CardAttribute extends Model
     ];
 
     protected $fillable = [
-        'name_fr', 'name_en',
+        'name_fr', 'name_en', 'hideIfEmpty', 'userPermitLevel',
     ];
 
     public function cardAssociation()

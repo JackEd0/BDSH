@@ -20,8 +20,9 @@ if (Auth::check()) {
 
 @section('content')
     <h1></h1>
-    <div class="" style="display: block; text-align: center; margin: auto; max-width: 40%;">
-        <form class="form-signin" id="addCardForm" method="POST" action="{{ URL::route('updateCard', \Crypt::encrypt($card->id)) }}">
+    <div class="container" style="display: block; text-align: center; margin: auto; max-width: 80%;">
+    <div class="col-md-6">
+        <form class="form-signin" id="addCardForm" method="POST" action="">
             {!! csrf_field() !!}
             <h1><br/></h1>
             <div style="margin-bottom: 2%;">
@@ -62,15 +63,22 @@ if (Auth::check()) {
             <div class="form-group" style="text-align:left;">
                 @foreach ($attributeList as $association)
                     <?php
-                    $attributeName = App\CardAttribute::find($association->card_attribute_id)->name_fr;
+                    $attribute = App\CardAttribute::find($association->card_attribute_id);
                     $attributeValue = $association->value;
                     ?>
-                    <label for="{{ $association->id  }}" class="control-label">{{ $attributeName  }}</label>
-                    <input type="text" name='{{ $association->id  }}' id='{{ $association->id  }}' class="form-control"
-                           placeholder="{{ $attributeName  }}" value="{{ $attributeValue  }}" disabled='disabled'><br>
+                    @if(!($attributeValue == null && $attribute->hideIfEmpty == 1))
+                        @if($currentUserType == 1)
+                            <label for="{{ $association->id  }}" class="control-label">{{ $attribute->name_fr  }}</label>
+                            <input type="text" name='{{ $association->id  }}' id='{{ $association->id  }}' class="form-control"
+                                   placeholder="{{ $attribute->name_fr  }}" value="{{ $attributeValue  }}" disabled='disabled'><br>
+                        @elseif($currentUserType != 1 && $attribute->userPermitLevel != 1  )
+                            <label for="{{ $association->id  }}" class="control-label">{{ $attribute->name_fr  }}</label>
+                            <input type="text" name='{{ $association->id  }}' id='{{ $association->id  }}' class="form-control"
+                                   placeholder="{{ $attribute->name_fr  }}" value="{{ $attributeValue  }}" disabled='disabled'><br>
+                        @endif
+                    @endif
                 @endforeach
             </div>
-            <h1><br/></h1>
         </form>
         <div class="btn btn-lg btn-link btn-block">
             <h3><a href="{{ url('search') }}">
@@ -78,6 +86,22 @@ if (Auth::check()) {
                 </a>
             </h3>
         </div>
+    </div>
+    <div class="col-md-6">
+        <h1><br/></h1>
+        <div id="imageUploaded"></div>
+
+        {{ Html::script('js/viewCard.js') }}
+
+        <?php
+        $filesPath = App\Document::where('card_id', '=', $card->id)->get();
+        $i = 0;
+        ?>
+        @foreach($filesPath as $filePath)
+            <input type="hidden" name="{{ $filePath->id }}" id="filePath{{ ++$i }}" value="{{ $filePath->file_name }}"/>
+            <script>showImage('filePath{{ $i }}');</script>
+        @endforeach
+    </div>
     </div>
 
 @stop

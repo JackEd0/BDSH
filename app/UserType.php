@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserType extends Model
 {
     //
-    protected $table = 'user_type';
+    protected $table = 'user_types';
 
     protected $guarded = [
         'id', 'created_at',

@@ -38,7 +38,7 @@ if (isset($subbar)) {
                             <div class="dropdown-content">
                                 <a href="{{ URL::route('users.list') }}">Gérer les utilisateurs</a>
                                 <a href="{{ URL::route('cards.add') }}">Ajouter une fiche</a>
-                                <a href="#">Ajouter un lot de documents</a>
+                                <a href="{{ URL::route('document.import') }}">Ajouter un lot de documents</a>
                             </div>
                         </li>
 

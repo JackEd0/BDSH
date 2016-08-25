@@ -64,15 +64,15 @@ class CardController extends BaseController
         foreach ($cardFiles->fileNames as $file){
             if($file != null){
                 Document::create([
-                'file_name'=> $file->fileName,
-                'card_id'=> $card->id,
+                    'file_name'=> $file->fileName,
+                    'card_id'=> $card->id,
                 ]);
             }
-         }
+        }
 
         return Redirect::to('search');
 
- //       return json_encode($cardFiles->fileNames[0]->fileName);
+        //       return json_encode($cardFiles->fileNames[0]->fileName);
     }
 
     /**
@@ -129,5 +129,21 @@ class CardController extends BaseController
 
         return view('cards.viewCard', compact('card', 'cardAssociationList'));
     }
-
+    public function addCardAttribute ()
+    {
+        return view('cards.addAttribute');
     }
+
+    public function createCardAttribute ()
+    {
+        CardAttribute::create([
+            'name_fr' => Input::get("nameFr"),
+            'name_en' => Input::get("nameEn"),
+            'hideIfEmpty' => Input::get("hideIfEmpty"),
+            'userPermitLevel' => Input::get("userPermitLevel")
+        ]);
+
+        return Redirect::to("search");
+    }
+
+}
