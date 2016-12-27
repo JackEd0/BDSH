@@ -34,5 +34,5 @@ class PasswordController extends Controller
 
         $user->save();
     }
-    protected $subject = "Réinitialisation du mot de passe";
+    protected $subject = 'Réinitialisation du mot de passe';
 }

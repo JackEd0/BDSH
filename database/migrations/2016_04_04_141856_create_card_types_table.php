@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\CardType;
 
 class CreateCardTypesTable extends Migration
 {
@@ -18,34 +17,10 @@ class CreateCardTypesTable extends Migration
             $table->timestamps();
         });
 
-        CardType::create([
-            'name_fr' => 'Archives',
-            'name_en' => 'Archives',
-        ]);
-        CardType::create([
-            'name_fr' => 'Audiovisuels',
-            'name_en' => 'Audiovisuals',
-        ]);
-        CardType::create([
-            'name_fr' => 'Bibliothèque',
-            'name_en' => 'Library',
-        ]);
-        CardType::create([
-            'name_fr' => 'Cartes',
-            'name_en' => 'Maps',
-        ]);
-        CardType::create([
-            'name_fr' => 'Images',
-            'name_en' => 'Pictures',
-        ]);
-        CardType::create([
-            'name_fr' => 'Périodiques',
-            'name_en' => 'Periodicals',
-        ]);
-        CardType::create([
-            'name_fr' => 'Sonores',
-            'name_en' => 'Sounds',
-        ]);
+        // FOREIGN KEY 
+        Schema::table('cards', function ($table) {
+            $table->foreign('card_type_id')->references('id')->on('card_types');
+        });
     }
 
     /**
@@ -53,6 +28,13 @@ class CreateCardTypesTable extends Migration
      */
     public function down()
     {
+        // DELETE FOREIGN KEY
+        Schema::table('cards', function ($table) {
+            if (Schema::hasColumn('cards', 'card_type_id')) {
+                $table->dropForeign('cards_card_type_id_foreign');
+            }
+        });
+        // DROP TABLE
         Schema::drop('card_types');
     }
 }

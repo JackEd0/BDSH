@@ -10,22 +10,27 @@ class Card extends Model
         'id', 'created_at',
     ];
 
+    protected $fillable = [
+        'id', 'card_type_id', 'card_number', 'collection_id',
+    ];
+
     public function cardAssociation()
     {
-        return $this->belongTo('\App\CardAssociation');
+        return $this->belongsTo('\App\CardAssociation', 'card_id');
     }
 
     public function cardType()
     {
-        return $this->hasMany('\App\CardType');
+        return $this->hasOne('\App\CardType', 'id');
+    }
+
+    public function collection()
+    {
+        return $this->hasOne('App\Collection', 'id');
     }
 
     public function document()
     {
-        return $this->hasMany('\App\Document');
+        return $this->belongsTo('\App\Document', 'card_id');
     }
-
-    protected $fillable = [
-        'id', 'card_type_id',
-    ];
 }

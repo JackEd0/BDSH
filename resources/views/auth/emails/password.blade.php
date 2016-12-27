@@ -1,12 +1,11 @@
-
-<?php
+{{--*/
 /**
  * Created by PhpStorm.
  * User: fanm2101
  * Date: 2016-04-13
- * Time: 23:19
+ * Time: 23:19.
  */
-?>
+ /*--}}
 @extends('layouts.email')
 
 @section('title')
@@ -23,7 +22,7 @@
         <a href="{{ $link = url('password/reset', $token).'?email='.urlencode($user->getEmailForPasswordReset()) }}"> {{ $link }} </a>
     </p>
     <p>
-        Si vous n'avez pas fait cette demande de réinitialisation, ignorez ce courriel et contactez nous immediatement !
+        Si vous n'avez pas fait cette demande de réinitialisation, merci d'ignorer ce courriel et de nous contacter immediatement.
     </p>
     <p>
         Cordialement.

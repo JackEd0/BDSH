@@ -14,6 +14,8 @@ $subbar = 'Connexion';
     Connexion
 @stop
 @section('content')
+    <!-- Bootstrap CSS pour login: login.css-->
+    {{ Html::style('css/login.css') }}
     <div class="container">
         <form class="form-signin" role="form" method="POST" action="{{ url('/login') }}">
             {!! csrf_field() !!}
@@ -33,7 +35,7 @@ $subbar = 'Connexion';
                 <label for="inputUsername" class="sr-only">Nom d'utilisateur</label>
 
                 <div class="">
-                    <br/><input type="text" id="inputUsername" name="username" class="form-control" value="{{ old('username') }}"  placeholder="Nom d'utilisateur" required autofocus>
+                    <br /><input type="text" id="inputUsername" name="username" class="form-control" value="{{ old('username') }}"  placeholder="Nom d'utilisateur" required autofocus>
 
                     @if ($errors->has('username'))
                         <span class="help-block">
@@ -62,7 +64,7 @@ $subbar = 'Connexion';
                 </label>
                 <a class="btn btn-link" href="{{ url('/password/reset') }}">Mot de passe oublié</a>
             </div>
-            <h4><br/></h4>
+            <br />
             <button class="btn btn-lg btn-primary btn-block" type="submit">
                 <i class="fa fa-btn fa-sign-in"></i>Continuer
             </button>
@@ -70,9 +72,5 @@ $subbar = 'Connexion';
         </form>
 
     </div>
-
-    <!-- Bootstrap CSS pour login: login.css-->
-    {{ Html::style('css/login.css') }}
-
 
 @stop

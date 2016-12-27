@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,17 +9,17 @@ class CardAssociation extends Model
     protected $guarded = [
         'id', 'created_at',
     ];
-    protected $fillable = [ 
-        'value', 'card_id', 'card_attribute_id'
+    protected $fillable = [
+        'value', 'card_id', 'card_attribute_id',
     ];
 
     public function card()
     {
-        return $this->hasMany('\App\Card');
+        return $this->hasOne('\App\Card', 'id');
     }
 
     public function cardAttribute()
     {
-        return $this->hasMany('\App\CardAttribute');
+        return $this->hasOne('\App\CardAttribute', 'id');
     }
 }

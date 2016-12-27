@@ -16,6 +16,11 @@ class CardType extends Model
 
     public function card()
     {
-        return $this->belongTo('\App\Card');
+        return $this->belongsTo('\App\Card', 'card_type_id');
+    }
+
+    public function cardAttributeType()
+    {
+        return $this->belongsTo('\App\CardAttributeType', 'card_type_id');
     }
 }

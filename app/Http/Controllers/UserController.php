@@ -9,16 +9,15 @@
 namespace app\Http\Controllers;
 
 use App\User;
+use App\UserType;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 
 class UserController extends BaseController
 {
-    //attribut pour la limite d'utilisateur affichée par page
-    public $usersRowsNumber = 11;
     /**
      * UserController constructeur: redirige vers 'login' si l'on n'est pas connecté.
      */
@@ -26,16 +25,21 @@ class UserController extends BaseController
     {
         $this->middleware('auth');
     }
+
     /**
      * Donne la liste des utilisateurs.
      *
+     * @param $inactiveButton
+     *
      * @return View
      */
-    public function userList()
+    public function userList($inactiveButton)
     {
-        $users = User::all();
+        $users = \DB::table('users')->select('users.*', 'user_types.name_fr', 'user_types.name_en')
+            ->where('active', $inactiveButton)->orderBy('username', 'asc')
+            ->join('user_types', 'users.user_type_id', '=', 'user_types.id')->get();
 
-        return view('admin.userList', compact('users'));
+        return view('admin.userList', compact('users', 'inactiveButton'));
     }
 
     /**
@@ -50,8 +54,9 @@ class UserController extends BaseController
         $id = \Crypt::decrypt($id);
         $user = User::where('id', $id)->firstOrFail();
         $userType = User::find($id)->userType;
+        $userTypes = UserType::all();
 
-        return view('admin.editUserAccess', compact('user', 'userType'));
+        return view('admin.editUserAccess', compact('user', 'userType', 'userTypes'));
     }
 
     /**
@@ -98,11 +103,10 @@ class UserController extends BaseController
     {
         $id = \Crypt::decrypt($id);
         $user = User::where('id', $id)->firstOrFail();
-        $newType = Input::get('userTypeSelect');
-        $user->user_type_id = $newType;
+        $user->user_type_id = Input::get('userTypeSelect');
         $user->save();
 
-        return redirect::to("users");
+        return Redirect::route('users.list', array(1));
     }
 
     /**
@@ -118,15 +122,14 @@ class UserController extends BaseController
         $user = User::where('id', $id)->firstOrFail();
         if ($user->active == 0) {
             $user->active = 1;
-            $message = 'L\'utilisateur : '.$user->firstName.' '.$user->name.' a été activé';
+            $message = 'L\'utilisateur : ' . $user->first_name . ' ' . $user->last_name . ' a été activé';
         } else {
             $user->active = 0;
-            $message = 'L\'utilisateur : '.$user->firstName.' '.$user->name.' a été désactivé';
+            $message = 'L\'utilisateur : ' . $user->first_name . ' ' . $user->last_name . ' a été désactivé';
         }
         $user->save();
-        $users = User::all();;
 
-        return view('admin.userList', compact('users', 'message'));
+        return Redirect::route('users.list', array(1));
     }
 
     /**
@@ -153,7 +156,7 @@ class UserController extends BaseController
                 $email = $user['email'];
                 \Mail::send('emails.PwdReset',
                     ['testVar' => $user['username']],
-                    function($message) use ($user) {
+                    function ($message) use ($user) {
                         $message->to($user['email'])->subject('Changement dans votre profil !');
                     });
                 $message = 'Mot de passe changé: Reconnectez-vous pour vérifier votre nouveau mot de passe';

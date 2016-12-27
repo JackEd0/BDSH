@@ -18,8 +18,9 @@ $subbar = 'Profil';
 @section('content')
 
     <div class="container">
-        <div class="" style="display: block; text-align: center; margin: auto; max-width: 60%;">
-            <form id="mainForm" class="form-signin" role="form" method="POST" action="{{ URL::route('updateProfile', \Crypt::encrypt($user->id)) }}">
+        <div style="display: block; text-align: center; margin: auto; max-width: 60%;">
+            <form id="mainForm" class="form-signin" role="form" method="POST"
+                  action="{{ URL::route('updateProfile', \Crypt::encrypt($user->id)) }}">
                 {!! csrf_field() !!}
 
                 <h1 class="form-signin-heading">Profil</h1>
@@ -33,7 +34,7 @@ $subbar = 'Profil';
                 <div class="form-group col-md-6" style="text-align:left;">
                     <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                         <label for="inputUsername" class="control-label">Nom d'utilisateur *</label>
-                        <div class="">
+                        <div>
                             <input type="text" class="form-control" id="inputUsername" name="username"
                                    value="{{ $user->username }}" placeholder="Nom d'utilisateur" required autofocus>
                             @if ($errors->has('username'))
@@ -43,26 +44,27 @@ $subbar = 'Profil';
                             @endif
                         </div>
                     </div>
-                    <div class="form-group{{ $errors->has('firstName') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
                         <label for="inputFirstName" class="control-label">Prénom *</label>
-                        <div class="">
-                            <input type="text" class="form-control text-capitalize" id="inputFirstName" name="firstName"
-                                   value="{{ $user->firstName }}" placeholder="Prénom" required>
-                            @if ($errors->has('firstName'))
+                        <div>
+                            <input type="text" class="form-control text-capitalize" id="inputFirstName"
+                                   name="first_name"
+                                   value="{{ $user->first_name }}" placeholder="Prénom" required>
+                            @if ($errors->has('first_name'))
                                 <span class="help-block">
-                                        <strong>{{ $errors->first('firstName') }}</strong>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
                                     </span>
                             @endif
                         </div>
                     </div>
-                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                        <label for="inputName" class="control-label">Nom *</label>
-                        <div class="">
-                            <input type="text" class="form-control text-capitalize" id="inputName" name="name"
-                                   value="{{ $user->name }}" placeholder="Nom" required>
-                            @if ($errors->has('name'))
+                    <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                        <label for="inputLastName" class="control-label">Nom *</label>
+                        <div>
+                            <input type="text" class="form-control text-capitalize" id="inputLastName" name="last_name"
+                                   value="{{ $user->last_name }}" placeholder="Nom" required>
+                            @if ($errors->has('last_name'))
                                 <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('last_name') }}</strong>
                                     </span>
                             @endif
                         </div>
@@ -70,7 +72,7 @@ $subbar = 'Profil';
 
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <label for="inputEmail" class="control-label">Email *</label>
-                        <div class="">
+                        <div>
                             <input type="email" class="form-control" id="inputEmail" name="email"
                                    value="{{ $user->email }}" placeholder="Email" required>
                             @if ($errors->has('email'))
@@ -82,7 +84,7 @@ $subbar = 'Profil';
                     </div>
                     <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                         <label for="inputPhone" class="control-label">Téléphone</label>
-                        <div class="">
+                        <div>
                             <input type="text" class="form-control" id="inputPhone" name="phone"
                                    value="{{ $user->phone }}" placeholder="Téléphone">
                             @if ($errors->has('phone'))
@@ -97,7 +99,7 @@ $subbar = 'Profil';
                 <div class="form-group col-md-6" style="text-align:left;">
                     <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                         <label for="inputAddress" class="control-label">Adresse *</label>
-                        <div class="">
+                        <div>
                             <input type="text" class="form-control" id="inputAddress" name="address"
                                    value="{{ $user->address }}" placeholder="Adresse" required>
                             @if ($errors->has('address'))
@@ -109,7 +111,7 @@ $subbar = 'Profil';
                     </div>
                     <div class="form-group{{ $errors->has('town') ? ' has-error' : '' }}">
                         <label for="inputTown" class="control-label">Ville *</label>
-                        <div class="">
+                        <div>
                             <input type="text" class="form-control" id="inputTown" name="town" value="{{ $user->town }}"
                                    placeholder="Ville" required>
                             @if ($errors->has('town'))
@@ -119,21 +121,21 @@ $subbar = 'Profil';
                             @endif
                         </div>
                     </div>
-                    <div class="form-group{{ $errors->has('postalCode') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('postal_code') ? ' has-error' : '' }}">
                         <label for="inputPostalCode" class="control-label">Code Postal *</label>
-                        <div class="">
-                            <input type="text" class="form-control" id="inputPostalCode" name="postalCode"
-                                   value="{{ $user->postalCode }}" placeholder="Code Postal" required>
-                            @if ($errors->has('postalCode'))
+                        <div>
+                            <input type="text" class="form-control" id="inputPostalCode" name="postal_code"
+                                   value="{{ $user->postal_code }}" placeholder="Code Postal" required>
+                            @if ($errors->has('postal_code'))
                                 <span class="help-block">
-                                        <strong>{{ $errors->first('postalCode') }}</strong>
+                                        <strong>{{ $errors->first('postal_code') }}</strong>
                                     </span>
                             @endif
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('province') ? ' has-error' : '' }}">
                         <label for="inputProvince" class="control-label">Province *</label>
-                        <div class="">
+                        <div>
                             <input type="text" class="form-control" id="inputProvince" name="province"
                                    value="{{ $user->province }}" placeholder="Province" required>
                             @if ($errors->has('province'))
@@ -145,7 +147,7 @@ $subbar = 'Profil';
                     </div>
                     <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
                         <label for="inputCountry" class="control-label">Pays *</label>
-                        <div class="">
+                        <div>
                             <input type="text" class="form-control" id="inputCountry" name="country"
                                    value="{{ $user->country }}" placeholder="Pays" required>
                             @if ($errors->has('country'))
@@ -167,21 +169,23 @@ $subbar = 'Profil';
                     </button>
                 </div>
             </form>
-            <h4><br/></h4>
-            <a href="#" onclick="hideThis('form', 'mainForm')" >
+            <br/>
+            <a href="#" onclick="hideThis('form', 'mainForm')">
                 <strong id="linkChangePassword">Modifier le mot de passe</strong>
                 <strong id="linkChangeProfile" style="display: none">Modifier les informations de profils</strong>
             </a>
 
-            <h4><br/></h4>
+            <br/>
 
-            <FORM id="form" method="POST" action="{{ URL::route('updatePassword', \Crypt::encrypt($user->id)) }}" style="display: none;" class="form-group col-md-8 col-sm-offset-2 col-xs-offset-2">
+            <FORM id="form" method="POST" action="{{ URL::route('updatePassword', \Crypt::encrypt($user->id)) }}"
+                  style="display: none;" class="form-group col-md-8 col-sm-offset-2 col-xs-offset-2">
                 {!! csrf_field() !!}
                 <div class="form-group" style="text-align:left;">
                     <div class="form-group{{ $errors->has('previousPassword') ? ' has-error' : '' }}">
                         <label for="inputPreviousPassword" class="control-label">Ancien mot de passe *</label>
-                        <div class="">
-                            <input type="password" class="form-control" id="inputPreviousPassword" name="previousPassword" placeholder="Ancien mot de passe" required>
+                        <div>
+                            <input type="password" class="form-control" id="inputPreviousPassword"
+                                   name="previousPassword" placeholder="Ancien mot de passe" required>
                             @if ($errors->has('previousPassword'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('previousPassword') }}</strong>
@@ -191,8 +195,9 @@ $subbar = 'Profil';
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <label class="control-label" for="inputPassword">Nouveau Mot de passe *</label>
-                        <div class="">
-                            <input id="inputPassword" class="password form-control" name="password" type="password" placeholder="Nouveau Mot de passe" required/>
+                        <div>
+                            <input id="inputPassword" class="password form-control" name="password" type="password"
+                                   placeholder="Nouveau Mot de passe" required/>
 
                             <ul class="helper-text">
                                 <li class="length">Au moins 8 caractères.</li>
@@ -209,8 +214,9 @@ $subbar = 'Profil';
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <label for="inputPasswordConfirmation" class="control-label">Confirmer Mot de passe *</label>
-                        <div class="">
-                            <input type="password" class="form-control" id="inputPasswordConfirmation" name="password_confirmation" placeholder="Confirmer mot de passe" required>
+                        <div>
+                            <input type="password" class="form-control" id="inputPasswordConfirmation"
+                                   name="password_confirmation" placeholder="Confirmer mot de passe" required>
                             @if ($errors->has('password_confirmation'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -226,10 +232,10 @@ $subbar = 'Profil';
                 </div>
 
             </FORM>
-            {{ Html::script('js/hideShowDiv.js') }}
         </div>
     </div>
 
+    {{ Html::script('js/hideShowDiv.js') }}
     {{ Html::script('js/passwordValidation.js') }}
     {{ Html::style('css/passwordValidation.css') }}
 @stop

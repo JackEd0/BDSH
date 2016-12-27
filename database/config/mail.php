@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'bdsh.test@gmail.com', 'name' => 'Bdsh'],
+    'from' => ['address' => 'bdsh.test@gmail.com', 'name' => 'Société d\'Histoire de Sherbrooke'],
 
     /*
     |--------------------------------------------------------------------------

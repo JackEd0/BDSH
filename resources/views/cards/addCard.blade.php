@@ -22,35 +22,35 @@ $subbar = 'Administration';
     <div class="" style="display: block; text-align: center; margin: auto; max-width: 40%;">
         <form class="form-signin" id="addCardForm" method="POST" action="{{ URL::route('cards.create') }}">
             {!! csrf_field() !!}
-            <h1><br/></h1>
+            <br />
             <div style="margin-bottom: 2%;">
                 @if (isset($message))
-                    <div class="bg-success bg-sm"> {{  $message }} </div>
+                    <div class="bg-success bg-sm"> {{ $message }} </div>
                 @endif
             </div>
-
+            @foreach($cardNumber as $cardNum)
+                <input type="hidden" name="cardNumber" value="{{ $cardNum }}" />
+            @endforeach
             <div class="form-group" style="text-align:left;">
                 <div class="selectContainer ">
-                    <label class="control-label" style="float: left ">Type de fiche</label>
-                    {{
-                        Form::select(
-                            'cardTypeSelect',
-                            array(
-                                1 => 'Archives',
-                                2 => 'Audiovisuels',
-                                3 => 'Bibliothèque',
-                                4 => 'Cartes',
-                                5 => 'Images',
-                                6 => 'Périodiques',
-                                7 => 'Sonores'
-                            ),
-                            null,
-                            array(
-                                'class' => 'form-control',
-                                'id' => 'cardTypeSelect'
-                            )
-                        )
-                    }}
+                    <label class="control-label" style="float: left ">Type de fiche </label>
+                    <select class="form-control" id = "cardTypeSelect" name="cardTypeSelect" onchange="populateForm('cardTypeSelect')">
+                        @foreach($cardTypes as $cardType)
+                            <option value="{{ $cardType->id }}">{{ $cardType->name_fr }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group hidden" style="text-align:left;">
+                <div class="selectContainer ">
+                    <label class="control-label" style="float: left ">Collection </label>
+                    <select class="form-control" id = "collectionSelect" name="collectionSelect">
+                        <option value="0">Veuillez choisir une collection</option>
+                        @foreach($collections as $collection)
+                            <option value="{{ $collection->id }}">{{ $collection->code . " - " . $collection->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -63,7 +63,7 @@ $subbar = 'Administration';
 
             <div class="form-group">
                 <button type="submit" class="btn btn-lg btn-primary btn-block">
-                    <i class="fa fa-btn fa-user"></i>Enregistrer
+                    <i class="fa fa-btn fa-user">Enregistrer</i>
                 </button>
                 <input type="hidden" name="fileNames" id="inputFileNames" value='{"fileNames":[]}'/>
             </div>
@@ -77,7 +77,7 @@ $subbar = 'Administration';
 
         <div class="btn btn-lg btn-link btn-block">
             <h3>
-            <a href="{{ URL::route('search.searchCard') }}">Annuler</a>
+            <a href="{{ URL::route('search.searchHome') }}">Annuler</a>
             </h3>
         </div>
     </div>

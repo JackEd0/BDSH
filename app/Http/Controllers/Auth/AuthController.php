@@ -2,13 +2,12 @@
 
 namespace app\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -30,7 +29,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'search';
+    protected $redirectTo = 'searchHome';
     // Redirige l'utilisateur vers la page de 'login' une fois déconnecté
     protected $redirectAfterLogout = 'login';
     // Utilise le 'username' au lieu de 'email' comme argument d'authentification
@@ -55,13 +54,13 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'username' => 'required|max:25|unique:users',
-            'name' => 'required|max:50',
-            'firstName' => 'required|max:50',
+            'first_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
             'email' => 'required|email|max:50|unique:users',
             'password' => 'required|confirmed|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_\W]).+$/',
             'address' => 'required|max:50',
             'town' => 'required|max:25',
-            'postalCode' => 'required|max:25',
+            'postal_code' => 'required|max:25',
             'province' => 'required|max:25',
             'country' => 'required|max:25',
         ]);
@@ -78,13 +77,13 @@ class AuthController extends Controller
     {
         return User::create([
             'username' => $data['username'],
-            'name' => $data['name'],
-            'firstName' => $data['firstName'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'address' => $data['address'],
             'town' => $data['town'],
-            'postalCode' => $data['postalCode'],
+            'postal_code' => $data['postal_code'],
             'province' => $data['province'],
             'country' => $data['country'],
             'phone' => $data['phone'],
@@ -100,7 +99,8 @@ class AuthController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
@@ -112,15 +112,15 @@ class AuthController extends Controller
                 $request, $validator
             );
         }
-        
+
         $user = $this->create($request->all());
 
-       \Mail::send('emails.registration',
+        \Mail::send('emails.registration',
             array('user' => $user),
-            function($message) use ($user) {
+            function ($message) use ($user) {
                 $message->to($user->email)->subject('Confirmation d\'inscription');
             });
-        
+
         return redirect('login')->with('warning', 'Un lien de confirmation vous a été envoyé. Veuillez vérifier votre boîte de réception ainsi que vos spams.');
     }
 
@@ -129,6 +129,7 @@ class AuthController extends Controller
         $credentials = $request->only($this->loginUsername(), 'password');
         $credentials = array_add($credentials, 'active', 1);
         $credentials = array_add($credentials, 'confirmed', 1);
+
         return $credentials;
     }
 

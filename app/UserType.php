@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserType extends Model
 {
     //
-    protected $table = 'user_type';
+    protected $table = 'user_types';
 
     protected $guarded = [
         'id', 'created_at',
@@ -20,6 +20,6 @@ class UserType extends Model
      */
     public function user()
     {
-        return $this->hasMany('\App\User');
+        return $this->belongsTo('\App\User', 'user_id');
     }
 }

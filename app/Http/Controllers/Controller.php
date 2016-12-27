@@ -6,6 +6,10 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
+use App\CardAttribute;
+use App\CardType;
+
 
 class Controller extends BaseController
 {
@@ -13,18 +17,17 @@ class Controller extends BaseController
 
     public function index()
     {
-        //return view('welcome');
-        return view('auth.login');
+        if ((Auth::id() == null) || (Auth::id() == 0)) {
+            return view('auth.login');
+        } else {
+            $cardAttributeList = CardAttribute::all();
+            $cardTypeList = CardType::all();
+            return view('search.searchHome', compact('cardAttributeList', 'cardTypeList'));
+        }
     }
 
-    //Appel des vues de shs (société d'histoire de sherbrooke)
     public function shsHome()
     {
-        //return view('shs.home');
-        return view('auth.login');
-    }
-    public function shsSearch()
-    {
-        return view('shs.search');
+        return redirect()->away('http://histoiresherbrooke.ca');
     }
 }

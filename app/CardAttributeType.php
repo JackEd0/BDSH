@@ -10,16 +10,16 @@ class CardAttributeType extends Model
         'id', 'created_at',
     ];
     protected $fillable = [
-        'value', 'card_type_id', 'card_attribute_id',
+        'value', 'card_type_id', 'card_attribute_id', 'position',
     ];
 
-    public function card()
+    public function cardType()
     {
-        return $this->hasMany('\App\CardType');
+        return $this->hasOne('\App\CardType', 'id');
     }
 
     public function cardAttribute()
     {
-        return $this->hasMany('\App\CardAttribute');
+        return $this->hasOne('\App\CardAttribute', 'id');
     }
 }

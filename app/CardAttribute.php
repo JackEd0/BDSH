@@ -11,11 +11,16 @@ class CardAttribute extends Model
     ];
 
     protected $fillable = [
-        'name_fr', 'name_en',
+        'name_fr', 'name_en', 'hide_if_empty', 'user_permit_level',
     ];
 
     public function cardAssociation()
     {
-        return $this->belongTo('\App\CardAssociation');
+        return $this->belongsTo('\App\CardAssociation', 'card_attribute_id');
+    }
+
+    public function cardAttributeType()
+    {
+        return $this->belongsTo('\App\CardAttributeType', 'card_attribute_id');
     }
 }

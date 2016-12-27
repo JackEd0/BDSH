@@ -2454,7 +2454,7 @@ KJUR.asn1.ASN1Object = function() {
  * @property {String} s internal string of value
  * @extends KJUR.asn1.ASN1Object
  * @description
- * <br/>
+ * <br />
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
@@ -2689,7 +2689,7 @@ JSX.extend(KJUR.asn1.DERBoolean, KJUR.asn1.ASN1Object);
  * @class class for ASN.1 DER Integer
  * @extends KJUR.asn1.ASN1Object
  * @description
- * <br/>
+ * <br />
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
@@ -2735,7 +2735,7 @@ KJUR.asn1.DERInteger = function(params) {
      * @function
      * @param {String} hexadecimal string of integer value
      * @description
-     * <br/>
+     * <br />
      * NOTE: Value shall be represented by minimum octet length of
      * two's complement representation.
      */
@@ -2766,7 +2766,7 @@ JSX.extend(KJUR.asn1.DERInteger, KJUR.asn1.ASN1Object);
  * @class class for ASN.1 DER encoded BitString primitive
  * @extends KJUR.asn1.ASN1Object
  * @description
- * <br/>
+ * <br />
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
@@ -2819,7 +2819,7 @@ KJUR.asn1.DERBitString = function(params) {
      * @param {String} binaryString binary value string (i.e. '10111')
      * @description
      * Its unused bits will be calculated automatically by length of
-     * 'binaryValue'. <br/>
+     * 'binaryValue'. <br />
      * NOTE: Trailing zeros '0' will be ignored.
      */
     this.setByBinaryString = function(binaryString) {
@@ -2936,7 +2936,7 @@ JSX.extend(KJUR.asn1.DERNull, KJUR.asn1.ASN1Object);
  * @param {Array} params associative array of parameters (ex. {'oid': '2.5.4.5'})
  * @extends KJUR.asn1.ASN1Object
  * @description
- * <br/>
+ * <br />
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
@@ -3134,7 +3134,7 @@ JSX.extend(KJUR.asn1.DERIA5String, KJUR.asn1.DERAbstractString);
  * @param {Array} params associative array of parameters (ex. {'str': '130430235959Z'})
  * @extends KJUR.asn1.DERAbstractTime
  * @description
- * <br/>
+ * <br />
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
@@ -3191,7 +3191,7 @@ JSX.extend(KJUR.asn1.DERUTCTime, KJUR.asn1.DERAbstractTime);
  * @param {Array} params associative array of parameters (ex. {'str': '20130430235959Z'})
  * @extends KJUR.asn1.DERAbstractTime
  * @description
- * <br/>
+ * <br />
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
@@ -3212,7 +3212,7 @@ KJUR.asn1.DERGeneralizedTime = function(params) {
      * @function
      * @param {Date} dateObject Date object to set ASN.1 value(V)
      * @example
-     * When you specify UTC time, use 'Date.UTC' method like this:<br/>
+     * When you specify UTC time, use 'Date.UTC' method like this:<br />
      * var o = new DERUTCTime();
      * var date = new Date(Date.UTC(2015, 0, 31, 23, 59, 59, 0)); #2015JAN31 23:59:59
      * o.setByDate(date);
@@ -3244,7 +3244,7 @@ JSX.extend(KJUR.asn1.DERGeneralizedTime, KJUR.asn1.DERAbstractTime);
  * @class class for ASN.1 DER Sequence
  * @extends KJUR.asn1.DERAbstractStructured
  * @description
- * <br/>
+ * <br />
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
@@ -3274,7 +3274,7 @@ JSX.extend(KJUR.asn1.DERSequence, KJUR.asn1.DERAbstractStructured);
  * @class class for ASN.1 DER Set
  * @extends KJUR.asn1.DERAbstractStructured
  * @description
- * <br/>
+ * <br />
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
  * <ul>
@@ -3305,11 +3305,11 @@ JSX.extend(KJUR.asn1.DERSet, KJUR.asn1.DERAbstractStructured);
  * @class class for ASN.1 DER TaggedObject
  * @extends KJUR.asn1.ASN1Object
  * @description
- * <br/>
+ * <br />
  * Parameter 'tagNoNex' is ASN.1 tag(T) value for this object.
  * For example, if you find '[1]' tag in a ASN.1 dump,
  * 'tagNoHex' will be 'a1'.
- * <br/>
+ * <br />
  * As for optional argument 'params' for constructor, you can specify *ANY* of
  * following properties:
  * <ul>
@@ -3865,25 +3865,25 @@ ASN1.prototype.toDOM = function () {
     this.node = node;
     this.head = head;
     var value = DOM.tag("div", "value");
-    s = "Offset: " + this.stream.pos + "<br/>";
+    s = "Offset: " + this.stream.pos + "<br />";
     s += "Length: " + this.header + "+";
     if (this.length >= 0)
         s += this.length;
     else
         s += (-this.length) + " (undefined)";
     if (this.tag & 0x20)
-        s += "<br/>(constructed)";
+        s += "<br />(constructed)";
     else if (((this.tag == 0x03) || (this.tag == 0x04)) && (this.sub !== null))
-        s += "<br/>(encapsulates)";
+        s += "<br />(encapsulates)";
     //TODO if (this.tag == 0x03) s += "Unused bits: "
     if (content !== null) {
-        s += "<br/>Value:<br/><b>" + content + "</b>";
+        s += "<br />Value:<br /><b>" + content + "</b>";
         if ((typeof oids === 'object') && (this.tag == 0x06)) {
             var oid = oids[content];
             if (oid) {
-                if (oid.d) s += "<br/>" + oid.d;
-                if (oid.c) s += "<br/>" + oid.c;
-                if (oid.w) s += "<br/>(warning!)";
+                if (oid.d) s += "<br />" + oid.d;
+                if (oid.c) s += "<br />" + oid.c;
+                if (oid.w) s += "<br />(warning!)";
             }
         }
     }
