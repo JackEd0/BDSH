@@ -17,16 +17,24 @@ use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends BaseController
 {
+	protected $image_folder_path;
+
+	public function __construct()
+	{
+		// $this->image_folder_path = 'C:\data\HOME\Documents\images\IMPORTER\ICONO';
+		$this->image_folder_path = $_SERVER['DOCUMENT_ROOT'] . 'img/ICONO';
+	}
+
     // For image card type only batch import
     public function importDocuments()
     {
         $importations = array();
-        $mainFolder = 'C:\data\HOME\Documents\images\IMPORTER\ICONO';
-        foreach (new \DirectoryIterator($mainFolder) as $collectionFolder) {
+        // $mainFolder = 'C:\data\HOME\Documents\images\IMPORTER\ICONO';
+        foreach (new \DirectoryIterator($this->image_folder_path) as $collectionFolder) {
             if ($collectionFolder->isDot()) {
                 continue;
             }
-            foreach (new \DirectoryIterator($mainFolder . '\\' . $collectionFolder) as $fileInfo) {
+            foreach (new \DirectoryIterator($this->image_folder_path . '\\' . $collectionFolder) as $fileInfo) {
                 if ($fileInfo->isDot()) {
                     continue;
                 }
@@ -121,7 +129,8 @@ class DocumentController extends BaseController
 
     public function downloadImage($collection, $filename)
     {
-        $documentPath = 'C:/data/HOME/Documents/images/IMPORTER/ICONO/' . $collection . '/' . $filename;
+        // $documentPath = 'C:/data/HOME/Documents/images/IMPORTER/ICONO/' . $collection . '/' . $filename;
+        $documentPath = $this->image_folder_path . '/' . $collection . '/' . $filename;
         if (file_exists($documentPath)) {
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
@@ -149,7 +158,8 @@ class DocumentController extends BaseController
             $usertype = 0;
         }
 
-        $documentPath = 'C:/data/HOME/Documents/images/IMPORTER/ICONO/' . $collection . '/' . $filename;
+        // $documentPath = 'C:/data/HOME/Documents/images/IMPORTER/ICONO/' . $collection . '/' . $filename;
+        $documentPath = $this->image_folder_path . '/' . $collection . '/' . $filename;
         $watermarkPath = './img/histoiresherbrooke.png';
         if (file_exists($documentPath)) {
             if ($usertype != 1 && $usertype != 2 && $usertype != 3) {
@@ -200,7 +210,8 @@ class DocumentController extends BaseController
 
     public function recordDownload($comment, $collection, $filename)
     {
-        $documentPath = 'C:/data/HOME/Documents/images/IMPORTER/ICONO/' . $collection . '/' . $filename;
+        // $documentPath = 'C:/data/HOME/Documents/images/IMPORTER/ICONO/' . $collection . '/' . $filename;
+        $documentPath = $this->image_folder_path . '/' . $collection . '/' . $filename;
         if (file_exists($documentPath)) {
             $document = Document::where('file_name', $filename)->firstOrFail();
             $user = Auth::user();

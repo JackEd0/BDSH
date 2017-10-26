@@ -213,7 +213,7 @@ class SearchController extends Controller
                     );
                 } catch (\Exception $e) {
                     $queryResults[] = array(
-                        "card_type" => $card->name_fr . ' <br /><a href="cards/view/' . \Crypt::encrypt($card->id) . '"><img src="/img/search-page/' . $card->name_fr . '.jpg" style="width:100%"></a>',
+                        "card_type" => $card->name_fr . ' <br /><a href="cards/view/' . \Crypt::encrypt($card->id) . '"><img src="/img/search-page/' . strtolower($card->name_fr) . '.jpg" style="width:100%"></a>',
                         "value" => $cardA,
                         "created_at" => substr($card->created_at,0,10),
                         "buttons" => $btnTable
@@ -262,7 +262,7 @@ class SearchController extends Controller
                     );
                 } catch (\Exception $e) {
                     $queryResults[] = array(
-                        "card_type" => $card->name_fr . ' <br /><a href="cards/view/' . \Crypt::encrypt($card->id) . '"><img src="/img/search-page/' . $card->name_fr . '.jpg" style="width:100%"></a>',
+                        "card_type" => $card->name_fr . ' <br /><a href="cards/view/' . \Crypt::encrypt($card->id) . '"><img src="/img/search-page/' . strtolower($card->name_fr) . '.jpg" style="width:100%"></a>',
                         "value" => $cardA,
                         "buttons" => $btnTable
                     );
