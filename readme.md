@@ -15,6 +15,8 @@ Be carefull to use `localhost` instead of `127.0.0.1` when asked by the provider
 
 Also in `config\app.php` update the `env('APP_KEY'`
 
+If you have warnings that prevent ajax then add in `public\index.php` `error_reporting(E_ERROR | E_PARSE);` in the first line.
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
