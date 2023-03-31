@@ -44,3 +44,10 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+*[href*="000webhost"],
+*[src*="000webhost"],
+*[title*="000webhost"],
+*[alt*="000webhost"] {
+  display: none;
+}

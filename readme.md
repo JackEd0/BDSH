@@ -1,4 +1,21 @@
-# Laravel PHP Framework
+# BDSH
+
+## Instalation
+
+Before updloading
+Make sure to upload in root folder of remote server and not in public_html.
+Upload everything in `public` to `public_html`.
+
+Create `.env` from `.env.example`. And update the config data in it. DB_DATABASE...
+Run `composer install`.
+Run sql in app.sql
+
+If database connection failed reading the `.env` file then change the `config\database.php` creds.
+Be carefull to use `localhost` instead of `127.0.0.1` when asked by the provider.
+
+Also in `config\app.php` update the `env('APP_KEY'`
+
+## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
 [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
